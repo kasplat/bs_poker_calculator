@@ -11,6 +11,3 @@ def two_of_a_kind(hand)
     end
     return false
 end
-
-pair_aces = Hand.new([Card.new('Ace', 'Hearts'), Card.new('Ace', 'Clubs')])
-puts two_of_a_kind(pair_aces)
