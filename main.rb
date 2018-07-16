@@ -7,7 +7,7 @@ def two_of_a_kind(hand)
         if pair_dict[card.rank]
             return true
         end
-        pair_dict[card.rank] = True
+        pair_dict[card.rank] = true
     end
     return false
 end
