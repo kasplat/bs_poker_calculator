@@ -4,7 +4,6 @@ include RubyCards
 
 def n_of_a_kind(hand, n)
     hand_dict = {}
-    puts hand
     hand.each do |card|
         if hand_dict[card.rank] == n - 1
             return [true, card.rank]
