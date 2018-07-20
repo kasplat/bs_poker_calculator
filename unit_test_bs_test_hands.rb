@@ -1,11 +1,11 @@
-# tests the "plain" hands
+# for testing the bs poker hands
 require_relative "./plain_hands.rb"
 require "test/unit"
 
 class TestPair < Test::Unit::TestCase
     
     def setup
-        @pair_aces = Hand.new([Card.new('Ace', 'Hearts'), Card.new('Ace', 'Clubs')])
+        @pair_aces = Hand.new([Card.new('Ace', 'Hearts'), Card.new(2, 'Clubs')])
         @three_random = Hand.new([Card.new(3, 'Hearts'), Card.new('Ace', 'Hearts'), Card.new('Queen', 'Hearts')])
         @pair_aces_and_fives = @pair_aces.cards + [Card.new(5, 'Hearts'), Card.new(5, 'Clubs')]
         @triple_aces = @pair_aces.cards + [Card.new('Ace', 'Spades')]
