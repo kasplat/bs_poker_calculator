@@ -7,7 +7,7 @@ This project was created to do a statistical analysis of the game BS poker. BS p
 ### Requirements
 
 * tested on ruby 2.3.1. Not guaranteed to work on other versions
-* rubycards: run `gem install rubycards`
+* `bundle` to install the dependencies.
 
 ## 
 
