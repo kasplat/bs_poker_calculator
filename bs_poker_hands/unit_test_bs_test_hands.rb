@@ -1,5 +1,5 @@
 # for testing the bs poker hands
-require_relative "./plain_hands.rb"
+require_relative "./bs_poker_hands.rb"
 require "test/unit"
 
 class TestPair < Test::Unit::TestCase
@@ -28,7 +28,7 @@ class TestPair < Test::Unit::TestCase
     end
 
     def test_triple_false
-        assert_equal(false, n_of_a_kind(@pair_aces_and_fives, 3))
+        assert_equal(false, n_of_a_kind(@small_straight, 3))
     end
 
     def test_1_pair_true

@@ -85,20 +85,21 @@ def full_house(hand)
 end
 
 def straight_flush(hand)
-    hand_dict = {}
+    hand_dict = Hash.new(0)
     hand.sort!()
     recent = false
     current_length = 1
     hand.each do |card|
-        if recent
-            if card.suit == recent.suit and card.rank.to_i - 1 == recent.rank.to_i
-                current_length += 1
-                if current_length == 5
-                    return [card.rank, card.suit]
-                end
-            elsif card.rank.to_i != recent.rank.to_i
-                current_length = 1
+        if !recent
+            recent = card
+        end
+        if card.suit == recent.suit and card.rank.to_i - 1 == recent.rank.to_i
+            current_length += 1
+            if current_length == 5
+                return [card.rank, card.suit]
             end
+        elsif card.rank.to_i != recent.rank.to_i
+            current_length = 1
         end
         recent = card
     end
@@ -106,13 +107,9 @@ def straight_flush(hand)
 end
 
 def get_hand_dict_nums(hand)
-    hand_dict = {}
+    hand_dict = Hash.new(0)
     hand.each do |card|
-        if hand_dict[card.rank]
-            hand_dict[card.rank] += 1
-        else
-            hand_dict[card.rank] = 1
-        end
+        hand_dict[card.rank] += 1
     end
     return hand_dict
 end
