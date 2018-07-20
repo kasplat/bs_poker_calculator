@@ -7,7 +7,7 @@ def n_of_a_kind(hand, n)
     hand_dict = get_hand_dict_nums(hand)
     hand_dict.each do |key, value|
         if value >= n
-            return [true, key]
+            return [key]
         end
     end
     return false
@@ -38,7 +38,7 @@ def straight(hand)
             if recent.rank.to_i == card.rank.to_i - 1
                 current_length += 1
                 if current_length == 5
-                    return [true, card.rank]
+                    return [card.rank]
                 end
             elsif card.rank.to_i != recent.rank.to_i
                 current_length = 1
@@ -53,7 +53,7 @@ def flush(hand)
     hand_dict = {}
     hand.each do |card|
         if hand_dict[card.suit] == 4
-            return [true, card.suit]
+            return [card.suit]
         else
             if hand_dict[card.suit]
                 hand_dict[card.suit] += 1
@@ -94,7 +94,7 @@ def straight_flush(hand)
             if card.suit == recent.suit and card.rank.to_i - 1 == recent.rank.to_i
                 current_length += 1
                 if current_length == 5
-                    return [true, card.rank, card.suit]
+                    return [card.rank, card.suit]
                 end
             elsif card.rank.to_i != recent.rank.to_i
                 current_length = 1

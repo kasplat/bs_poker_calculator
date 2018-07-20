@@ -16,7 +16,7 @@ class TestPair < Test::Unit::TestCase
     end
 
     def test_pair_true
-        assert_equal([true, 'Ace'], n_of_a_kind(@pair_aces, 2))
+        assert_equal(['Ace'], n_of_a_kind(@pair_aces, 2))
     end
 
     def test_pair_false
@@ -24,7 +24,7 @@ class TestPair < Test::Unit::TestCase
     end
 
     def test_triple_true
-        assert_equal([true, 'Ace'], n_of_a_kind(@triple_aces, 3))
+        assert_equal(['Ace'], n_of_a_kind(@triple_aces, 3))
     end
 
     def test_triple_false
@@ -48,7 +48,7 @@ class TestPair < Test::Unit::TestCase
     end
 
     def test_straight_true
-        assert_equal([true, '7'], straight(@straight))
+        assert_equal(['7'], straight(@straight))
     end
     
     def test_straight_false
@@ -56,7 +56,7 @@ class TestPair < Test::Unit::TestCase
     end
 
     def test_flush_true
-        assert_equal([true, "Spades"], flush(@straight))
+        assert_equal(["Spades"], flush(@straight))
     end
 
     def test_flush_false
@@ -72,7 +72,7 @@ class TestPair < Test::Unit::TestCase
     end
 
     def test_straight_flush_true
-        assert_equal([true, '7', "Spades"], straight_flush(@straight))
+        assert_equal(['7', "Spades"], straight_flush(@straight))
     end
 
     def test_straight_flush_false
