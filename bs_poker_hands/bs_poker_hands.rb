@@ -37,24 +37,43 @@ def n_pair(hand, n)
 
 end
 
-def straight(hand)
-    hand.sort!()
-    recent = false
-    current_length = 1
-    hand.each do |card|
-        if recent
-            if recent.rank.to_i == card.rank.to_i - 1
-                current_length += 1
-                if current_length == 5
-                    return [card.rank]
-                end
-            elsif card.rank.to_i != recent.rank.to_i
-                current_length = 1
+def straight(hand, straight_length)
+    """
+    Window through the straight length from 3 upward to check if straight exists
+    """
+    hand_dict = get_hand_dict_nums(hand)
+    current_start = 3
+    while current_start + straight_length - 1 <= 14  # if len == 1, go from 14 + 1 -1 to 14
+        total = 0
+        (current_start..current_start + straight_length - 1).each do |key|
+            card_rank = get_rank(key)
+            if hand_dict.has_key? card_rank
+                total += 1
             end
         end
-        recent = card
+        if total + hand_dict['2'] == straight_length
+            return true
+        end
+        current_start += 1
     end
     return false
+end
+
+def get_rank(card_rank)
+    # takes a card rank in an int and returns the string (for Jack - Ace)
+    if card_rank < 11
+        return card_rank.to_s
+    end
+    case card_rank
+    when 11
+        return "Jack"
+    when 12
+        return "Queen"
+    when 13
+        return "King"
+    when 14
+        return "Ace"
+    end
 end
 
 def flush(hand)
@@ -69,58 +88,66 @@ def flush(hand)
     return false
 end
 
-def full_house(hand)
+def n_over_m(hand, n, m)
     hand_dict = get_hand_dict_nums(hand)
 
-    three_of_a_kind = false
-    two_of_a_kind = false
+    n_of_a_kind = false
+    m_of_a_kind = false
+    # check for raw n-tuple and m-tuple so that 2s are not removed unless they need to be
     hand_dict.each do |key, value|
-        if value >= 3 and not three_of_a_kind
-            three_of_a_kind = key
-        elsif value >= 2
-            two_of_a_kind = key
-        end 
+        next if value == 2
+        if value >= n and not n_of_a_kind
+            n_of_a_kind = key
+        # elsif value >= m
+        #     m_of_a_kind = key
+        end
     end
-    if !three_of_a_kind
+    if !n_of_a_kind
         hand_dict.each do |key, value|
-            if value + hand_dict['2'] >= 3
-                three_of_a_kind = key
-                hand_dict['2'] -= 3 - value  # if value is 2, reduce by 1 "2".
+            if value + hand_dict['2'] >= n
+                n_of_a_kind = key
+                if hand_dict.has_key? '2'
+                   hand_dict['2'] -= n - value  # if value is 2, reduce by 1 "2".
+                end
+                break
             end
         end
     end
-    if !two_of_a_kind
+    if !m_of_a_kind
         hand_dict.each do |key, value|
-            if value + hand_dict['2'] >= 2
-                two_of_a_kind = key
-                hand_dict['2'] -= 2 - value
+            next if key == n_of_a_kind or key == '2'
+            if value + hand_dict['2'] >= m
+                m_of_a_kind = key
+                if hand_dict.has_key? '2'
+                    hand_dict['2'] -= m - value
+                end
             end
         end
     end
-    if three_of_a_kind and two_of_a_kind
-        return [three_of_a_kind, two_of_a_kind]
+    if n_of_a_kind and m_of_a_kind
+        return [n_of_a_kind, m_of_a_kind]
     else
         return false
     end
 end
 
-def straight_flush(hand)
-    hand.sort!()
-    recent = false
-    current_length = 1
-    hand.each do |card|
-        if !recent
-            recent = card
-        end
-        if card.suit == recent.suit and card.rank.to_i - 1 == recent.rank.to_i
-            current_length += 1
-            if current_length == 5
-                return [card.rank, card.suit]
+def straight_flush(hand, straight_length)
+    ['Clubs', "Diamonds", 'Hearts', "Spades"].each do |current_suit|
+        current_start = 3
+        while current_start + straight_length - 1 <= 14  # if len == 1, go from 14 + 1 -1 to 14
+            total = 0
+            two_exists = hand.detect {|card| card.rank == 2 and card.suit == current_suit} ? 1 : 0  # 1 if it exists, else 0
+            (current_start..current_start + straight_length - 1).each do |key|
+                card_rank = get_rank(key)
+                if hand.detect {|card| card.rank == card_rank and card.suit == current_suit}
+                    total += 1
+                end
             end
-        elsif card.rank.to_i != recent.rank.to_i
-            current_length = 1
+            if total + two_exists == straight_length
+                return true
+            end
+            current_start += 1
         end
-        recent = card
     end
     return false
 end
