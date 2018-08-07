@@ -51,7 +51,7 @@ def straight(hand, straight_length)
                 total += 1
             end
         end
-        if total + hand_dict['2'] == straight_length
+        if total + hand_dict['2'] >= straight_length
             return true
         end
         current_start += 1
@@ -76,10 +76,10 @@ def get_rank(card_rank)
     end
 end
 
-def flush(hand)
+def flush_of_n(hand, n)
     hand_dict = Hash.new(0)
     hand.each do |card|
-        if hand_dict[card.suit] == 4
+        if hand_dict[card.suit] == n-1
             return [card.suit]
         else
             hand_dict[card.suit] += 1
@@ -136,14 +136,14 @@ def straight_flush(hand, straight_length)
         current_start = 3
         while current_start + straight_length - 1 <= 14  # if len == 1, go from 14 + 1 -1 to 14
             total = 0
-            two_exists = hand.detect {|card| card.rank == 2 and card.suit == current_suit} ? 1 : 0  # 1 if it exists, else 0
+            two_exists = hand.detect {|card| card.rank == '2' and card.suit == current_suit} ? 1 : 0  # 1 if it exists, else 0
             (current_start..current_start + straight_length - 1).each do |key|
                 card_rank = get_rank(key)
                 if hand.detect {|card| card.rank == card_rank and card.suit == current_suit}
                     total += 1
                 end
             end
-            if total + two_exists == straight_length
+            if total + two_exists >= straight_length
                 return true
             end
             current_start += 1

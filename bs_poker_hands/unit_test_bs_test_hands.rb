@@ -67,11 +67,11 @@ class TestPair < Test::Unit::TestCase
     end
 
     def test_flush_true
-        assert_equal(["Spades"], flush(@straight))
+        assert_equal(["Spades"], flush_of_n(@straight, 5))
     end
 
     def test_flush_false
-        assert_equal(false, flush(@four_spades_3_hearts))
+        assert_equal(false, flush_of_n(@four_spades_3_hearts, 5))
     end
 
     def test_full_house_true
