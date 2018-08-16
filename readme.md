@@ -7,26 +7,26 @@ If a player loses a round, they start with 1 additional card during the next rou
 To increase the odds of high hands, 2s are wild cards that can change to any other number (but they stay the same suit for flushes).
 
 Here is the final ranking: probability we decided to use based on these results (based on a 15 card hand, 6 wilds, and 10000 simulations). 
-Ten of a Kind: 0.0001
-Nine of a Kind: 0.0001
-Eight of a Kind: 0.0027
-Spaceship: 0.0081
-Long Straight Flush: 0.0009
-Seven of a Kind: 0.0243
-Skyscraper: 0.0615
-Six of a Kind: 0.1317
-Straight Flush: 0.1229
-Five of a Kind: 0.4091
-Boat: 0.4277
-Long Straight: 0.7295
-Four of a Kind: 0.7698
-Full House: 0.963
-Three of a Kind: 0.963
-Flush: 0.9156
-Straight: 0.9646
-Two Pair: 1.0
-Pair: 1.0
-High Card: 1.0
+* Ten of a Kind: 0.0001
+* Nine of a Kind: 0.0001
+* Eight of a Kind: 0.0027
+* Spaceship: 0.0081
+* Long Straight Flush: 0.0009
+* Seven of a Kind: 0.0243
+* Skyscraper: 0.0615
+* Six of a Kind: 0.1317
+* Straight Flush: 0.1229
+* FiveFive of a Kind: 0.4091
+* Boat: 0.4277
+* Long Straight: 0.7295
+* Four of a Kind: 0.7698
+* Full House: 0.963
+* Three of a Kind: 0.963
+* Flush: 0.9156
+* Straight: 0.9646
+* Two Pair: 1.0
+* Pair: 1.0
+* High Card: 1.0
 
 Note that straight flush, long straight flush, and joker are out of order from their probability. This is because we play with the two additional wilds as jokers, which change suit and make all flushes significantly more likely. 
 
